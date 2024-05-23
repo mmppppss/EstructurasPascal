@@ -36,7 +36,7 @@ IMPLEMENTATION
 
 	Procedure Insertar(var C:Conjunto;E:Integer);
 	Begin
-		InsertarEnOrden(C,E);
+		InsertarEnOrden3(C,E);
 	end;
 
 BEGIN

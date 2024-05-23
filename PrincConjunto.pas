@@ -3,9 +3,18 @@ var
 	C:Conjunto;
 Begin
 	CrearConjunto(C);
-	Insertar(C,1);
+	Insertar(C,3);
+	Insertar(C,7);
+	Insertar(C,4);
+	Insertar(C,5);
 	Insertar(C,0);
-	MostrarConjunto(C);
-	Eliminar(C,1);
+	Insertar(C,1);
+	Insertar(C,87);
+	Insertar(C,0);
+	Insertar(C,3);
+	Insertar(C,7);
+	Insertar(C,4);	
+	Insertar(C,8);
+	Insertar(C,91);
 	MostrarConjunto(C);
 end.

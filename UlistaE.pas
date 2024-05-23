@@ -17,6 +17,8 @@ interface
    Procedure MostrarListaVertical(L:Pnodo);
    Procedure InsertarPosicion(var L:Pnodo;E,pos:Integer);
    Procedure INsertarEnOrden(var L:Pnodo;E:integer);
+   Procedure InsertarEnOrden2(var L:Pnodo;E:integer);
+   Procedure InsertarEnOrden3(var L:Pnodo;E:integer);
    Function EsVacia (L:Pnodo):Boolean;
    Function CantidadElementos(l:Pnodo):Integer;
    Function Primero(L:Pnodo):Integer;
@@ -81,22 +83,17 @@ IMPLEMENTATION
 	end;
 
 
-Procedure MostrarLista(L:Pnodo);
-Var
-   Aux:Pnodo;
-Begin
-	if EsVacia(L)=false then
-       begin
-       	 Aux:=L;
-       	 While (aux<>nil) do
-       	  begin
-           write(Aux^.ele,'->');
-       	  	aux:=aux^.sig;
-       	  end;
-       end
-     ELSE
-        WRITELN('LISTA VACIA');
-end;
+	Procedure MostrarLista(L:Pnodo);
+	Var
+		Aux:Pnodo;
+	Begin
+		while (L<>nil) do
+			begin
+				write('[ ',L^.ele,' ]->');
+				L:=L^.sig;
+			end;
+		writeln('NIL');
+	end;
 
 
 Procedure MostrarListaVertical(L:Pnodo);
@@ -108,7 +105,7 @@ Begin
        	 Aux:=L;
        	 While (aux<>nil) do
        	  begin
-            writeln(Aux^.ele);
+            writeln('[',Aux^.ele,']');
        	  	aux:=aux^.sig;
        	  end;
        end;
@@ -222,19 +219,20 @@ Begin
 
           end;
   end;
-  Function Existe(L:Pnodo;E:Integer):Boolean;
-  var
-    aux:Pnodo;
-  begin
-     Aux:=L;
-     While (Aux<>Nil) and (aux^.ele<>E) do
-        Aux:=aux^.sig;
-     if  Aux^.ele = E then
-         Existe:= true
-     else
-         Existe:=false;
-
-  end;
+	Function Existe(L:Pnodo;E:Integer):Boolean;
+	var
+		aux:Pnodo;
+	begin
+		aux:=L;
+		While (aux<>Nil) and (aux^.ele<>E) do
+			Begin
+				aux:=aux^.sig;
+			end;
+		if(aux=nil) then
+			Existe:=false
+		else
+			Existe:=(aux^.ele=E);
+	end;
 
 Procedure INsertarEnOrden(var L:Pnodo;E:integer);
 var
@@ -278,9 +276,55 @@ END;
 
 Procedure InsertarEnOrden2(var L:Pnodo; E: integer);
 var
-	auxq
+  Nuevo, Ant, Act: Pnodo;
+begin
+  New(Nuevo);
+  Nuevo^.Ele := E;
+  Nuevo^.Sig := nil;
+if not Existe(L,E)then
+    begin 
+      if EsVacia(L) or (L^.Ele >= E) then
+        begin
+           Nuevo^.Sig := L;
+          L := Nuevo;
+        end
+     else
+       begin
+         Ant := L;
+         Act := L^.Sig;
+         while (Act <> nil) and (Act^.Ele < E) do
+           begin
+             Ant := Act;
+             Act := Act^.Sig;
+           end;
+           Nuevo^.Sig := Act;
+           Ant^.Sig := Nuevo;
+       end;
+   end;
+end;
+
+Procedure InsertarEnOrden3(var L:Pnodo; E: integer);
+var
+	Nuevo, aux:Pnodo;
 Begin
-	
+	if (EXISTE(L,E)) then exit
+	else if(EsVacia(L)) or (L^.Ele>E) then
+		InsertarPrimero(L,E)
+	else 
+		begin
+			aux:=L;
+			while(aux^.sig<>nil) and (aux^.sig^.ele<E)do
+					aux:=aux^.sig;
+			if(aux^.sig=nil) then
+				InsertarUltimo(L,E)
+			else 
+				begin
+					New(Nuevo);
+					Nuevo^.ele:=E;
+					Nuevo^.sig:=aux^.sig;
+					aux^.sig:=Nuevo;
+				end;
+		end;	
 end;
 
 Begin
