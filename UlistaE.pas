@@ -84,8 +84,6 @@ IMPLEMENTATION
 
 
 	Procedure MostrarLista(L:Pnodo);
-	Var
-		Aux:Pnodo;
 	Begin
 		while (L<>nil) do
 			begin
@@ -131,14 +129,10 @@ Procedure INSERTARULTIMO(Var L:Pnodo;E:Integer);
 end;
 
 Procedure EliminarPrimero(Var L:Pnodo);
-var
-	aux:Pnodo;
 begin
 	if Esvacia(L)=false then
 		begin
-		    aux:=L;
 			L:=l^.sig;
-			Dispose(aux);
 		end;
 end;
 
