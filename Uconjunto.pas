@@ -17,10 +17,14 @@ INTERFACE
 	Function DiferenciaSimetrica(C1,C2:Conjunto):Conjunto;
 	Function Inclusion(C1,C2:Conjunto):Boolean;
 	Function Igualdad(C1,C2:Conjunto):Boolean;
+	Function PrimeroC(C:Conjunto):Integer;
 	Procedure sumaConjunto(c1,c2:conjunto; var res:conjunto);
 
 IMPLEMENTATION
-
+	Function PrimeroC(C: Conjunto):Integer;
+	Begin
+		PrimeroC:=Primero(C);
+	end;
 	Procedure CrearConjunto(var C:Conjunto);
 	Begin
 		CrearLista(C);
