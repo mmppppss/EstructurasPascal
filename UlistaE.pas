@@ -1,6 +1,6 @@
 unit UlistaE;
 interface
-
+Uses sysutils;
    type 
    Pnodo = ^Nodo;
    Nodo = record
@@ -16,7 +16,7 @@ interface
    Procedure EliminarElemento (var L:Pnodo;E:integer);
    Procedure MostrarListaVertical(L:Pnodo);
    Procedure InsertarPosicion(var L:Pnodo;E,pos:Integer);
-   Procedure INsertarEnOrden(var L:Pnodo;E:integer);
+   Procedure InsertarEnOrden(var L:Pnodo;E:integer);
    Procedure InsertarEnOrden2(var L:Pnodo;E:integer);
    Procedure InsertarEnOrden3(var L:Pnodo;E:integer);
    Function EsVacia (L:Pnodo):Boolean;
@@ -24,6 +24,7 @@ interface
    Function Primero(L:Pnodo):Integer;
    Function Ultimo(L:Pnodo):Integer;
    Function Existe(L:Pnodo;E:Integer):Boolean;
+   Function ListToStr(L:Pnodo):String;
 	
 
 IMPLEMENTATION
@@ -320,6 +321,18 @@ Begin
 				end;
 		end;	
 end;
+	function ListToStr(L:Pnodo):String;
+	var
+		s:String;
+	begin
+		s:='';
+		while not EsVacia(L) do
+		begin
+			s:=s+'[ '+IntToStr(L^.ele)+' ]->';
+			L:=L^.sig;
+		end;
+		ListToStr:=s+'NIL';
+	end;
 
 Begin
 end.
